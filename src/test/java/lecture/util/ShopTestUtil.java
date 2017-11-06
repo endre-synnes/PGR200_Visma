@@ -21,8 +21,8 @@ public class ShopTestUtil {
 		items.add(new Item(2006, "Producer6 Test7", ItemLocation.HAMAR, ItemType.CLOTHING, 1));
 		items.add(new Item(2007, "Producer11 Test12", ItemLocation.HAMAR, ItemType.CLOTHING, 100));
 		items.add(new Item(2008, "Producer11 Test15", ItemLocation.HAMAR, ItemType.CLOTHING, 60));
+		items.add(new Item(2010, "Producer13 Xest17", ItemLocation.OSLO, ItemType.BEVERAGE, 70));
 		items.add(new Item(2009, "Producer12 Test16", ItemLocation.OSLO, ItemType.BEVERAGE, 70));
-		items.add(new Item(2010, "Producer12 Xest17", ItemLocation.OSLO, ItemType.BEVERAGE, 70));
 	}
 	
 	public List<Item> getItems() {

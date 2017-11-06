@@ -228,4 +228,48 @@ public class ShopService {
 		validateOutputItem(item);
 		return item;
 	}
+
+	/**
+	 * ex 14 	Get item with the lowest number in stock
+	 * @return
+	 */
+	public Item getItemWithLeastInStock() {
+		Item item = shopRepository.getAllItems()
+				.stream()
+				.min(Comparator.comparingInt(Item::getStock))
+				.get();
+
+		validateOutputItem(item);
+		return item;
+	}
+
+
+	/**
+	 * ex 16 	getting list sorted by producer
+	 * @return
+	 */
+	public List<Item> getItemsSortedByProducer() {
+		List<Item> items = shopRepository.getAllItems()
+				.stream()
+				.sorted(Comparator.comparing(Item::getItemName))
+				.collect(Collectors.toList());
+
+		validateOutputList(items);
+		return items;
+	}
+
+	/**
+	 * ex 17	getting list sorted by name
+	 * @return
+	 */
+	public List<Item> getItemsSortedByName() {
+		List<Item> items = shopRepository.getAllItems()
+				.stream()
+				.sorted(Comparator.comparing(item -> item.getItemName()
+						.substring(item.getItemName().indexOf(" "))))
+				.collect(Collectors.toList());
+
+		validateOutputList(items);
+		return items;
+	}
 }

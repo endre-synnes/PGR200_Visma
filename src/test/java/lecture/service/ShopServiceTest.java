@@ -188,4 +188,48 @@ public class ShopServiceTest {
 		Item item = shopService.getItemWithMostInStock();
 		assertTrue(item.getItemID() == 2007);
 	}
+
+
+	/**
+	 * ex 14 	find item with least in stock
+	 * @throws Exception
+	 */
+	@Test
+	public void getItemsWithLeastInStock() throws Exception {
+		Item item = shopService.getItemWithLeastInStock();
+		assertTrue(item.getItemID() == 2001);
+	}
+
+
+//	/**
+//	 * ex 15
+//	 * @throws Exception
+//	 */
+//	@Test
+//	public void getItemsInLocationXStockHigherThanY() throws Exception {
+//		List<Item> items = shopService.getItemsInLocationXStockHigherThan()
+//	}
+
+	/**
+	 * ex 16	Getting sorted list by producer name.
+	 * 			Comparing String so does not work so good when only difference in producer-name is a number.
+	 * @throws Exception
+	 */
+	@Test
+	public void getAllItemsSortedByProducer() throws Exception {
+		List<Item> sortedList = shopService.getItemsSortedByProducer();
+		assertTrue(sortedList.get(9).getItemID() == 2006);
+	}
+
+
+	/**
+	 * ex 17	Getting sorted list by name.
+	 * @throws Exception
+	 */
+	@Test
+	public void getAllItemsSortedByName() throws Exception {
+		List<Item> sortedList = shopService.getItemsSortedByName();
+		assertTrue(sortedList.get(9).getItemID() == 2010);
+
+	}
 }
