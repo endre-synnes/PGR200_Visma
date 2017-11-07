@@ -3,6 +3,7 @@ package com.visma.lecture.repository;
 import com.visma.lecture.common.domain.Item;
 import com.visma.lecture.common.domain.support.ItemLocation;
 import com.visma.lecture.common.domain.support.ItemType;
+import static com.visma.lecture.Validators.Validator.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,6 +29,7 @@ public class ShopRepository {
 	}
 
 	public Boolean create(Item item) {
+		validateOutputItem(item);
 		return items.add(item);
 	}
 
@@ -43,45 +45,52 @@ public class ShopRepository {
 
 	//ex 2
 	public List<Item> getAllItems() {
-		return items
+		List<Item> i = items
 				.stream()
 				.collect(Collectors.toList());
+		validateOutputList(i);
+		return i;
 	}
 
 	//ex 3
 	public List<Item> getItemsInRange(int start, int end) {
-
-		return items.stream()
+		List<Item> list = items.stream()
 				.sorted(Comparator.comparingInt(Item::getItemID))
 				.filter(item -> item.getItemID() >= start)
 				.filter(item -> item.getItemID() <= end)
 				.collect(Collectors.toList());
+		validateOutputList(list);
+		return list;
 	}
 
 	//ex 4
 	public List<Item> getItemsPerLocation(ItemLocation location) {
-		return items
+		List<Item> list = items
 				.stream()
 				.filter(item -> item.getItemLocation().equals(location))
-				.collect(Collectors.toList())
-				;
-
+				.collect(Collectors.toList());
+		validateOutputList(list);
+		return list;
 	}
 	
 
 	//ex 5
 	public List<Item> getItemsPerType(ItemType typeName) {
-		return items.stream()
+		List<Item> list = items.stream()
 				.filter(item -> item.getItemType().equals(typeName))
 				.collect(Collectors.toList());
+		validateOutputList(list);
+		return list;
 	}
 
 
 	//ex 6
 	public List<Item> getItemsPerProducer(String producer) {
 		final String formattedProducer = producer.replace(" ", "_");
-		return items.stream()
+		List<Item> list = items.stream()
 				.filter(item -> item.getItemName().contains(formattedProducer))
 				.collect(Collectors.toList());
+		validateOutputList(list);
+		return list;
 	}
 }

@@ -1,3 +1,18 @@
+## My Solution ##
+
+In my solution have I filled out the classes ShopRepository and ShopService with the methods described in our Task. 
+Further on I have created tests to see if my implementation works correctly.
+
+Some of the exercises were hard to understand but I have made some assumptions and this is described as JavaDoc in both the method it self 
+and the test methods.
+
+Over all I am very satisfied with my solution and hope I have solved the Task as expected.
+
+
+
+
+
+
 ## Task ##
 
 ## Shop - Functional design ##
