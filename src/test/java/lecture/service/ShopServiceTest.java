@@ -42,7 +42,10 @@ public class ShopServiceTest {
 //		expected.expectMessage("Input was null, empty or lower than 0.");
 //	}
 
-	//Oppgave 1
+	/**
+	 *  Test if i can get a Map per location and contains key.
+	 * @throws Exception
+	 */
 	@Test
 	public void getMapPerLocation() throws Exception {
 		Map<ItemLocation, List<Item>> map = shopService.getMapOfAllItemsPerLocation();
@@ -51,7 +54,10 @@ public class ShopServiceTest {
 		assertEquals(2, map.size());
 	}
 
-	//Oppgave 2
+	/**
+	 * ex 2 	test if Map contains the key i am asking for, and size is as expected.
+	 * @throws Exception
+	 */
 	@Test
 	public void getMapPerType() throws Exception {
 		Map<ItemType, List<Item>> map = shopService.getMapOfAllItemsPerType();
@@ -59,14 +65,20 @@ public class ShopServiceTest {
 		assertEquals(3, map.size());
 	}
 
-	//Oppgave 3
+	/**
+	 * ex 3		Test if Map contains the key i am asking for.
+	 * @throws Exception
+	 */
 	@Test
 	public void getMapPerProducer() throws Exception {
 		Map<String, List<Item>> map = shopService.getMapOfAllItemsPerProducer();
 		assertTrue(map.containsKey("Producer2"));
 	}
 
-	//Oppgave 4
+	/**
+	 * ex 4		Test if the Map returns expected size per key.
+	 * @throws Exception
+	 */
 	@Test
 	public void getMapPerInStock() throws Exception {
 		Map<Boolean, List<Item>> map = shopService.getMapOfAllItemsPerStock();
@@ -74,13 +86,19 @@ public class ShopServiceTest {
 		assertEquals(0, map.get(true).size());
 	}
 
-	/** ex 5 */
+	/**
+	 * ex 5 	Test if i can find an item by id.
+	 * @throws Exception
+	 */
 	@Test
 	public void getAnItemById() throws Exception {
 		assertNotNull(shopService.getItemById(2001));
 	}
 
-	/** ex 5 test if method throws exception as it should */
+	/**
+	 * ex 5 	test if method throws exception as it should
+ 	 * @throws Exception
+	 */
 	@Test
 	public void getAnItemByIdThatDoesNotExist() throws Exception {
 		expected.expect(NoItemFoundForCriteriaException.class);

@@ -50,11 +50,11 @@ public class ShopRepositoryTest {
 	@Test
 	public void add() throws Exception {
 		Integer size = items.size();
-		Boolean add = shopRepository.create(new Item(2007, "Producer8 Test8", ItemLocation.SARPSBORG, ItemType.CLOTHING, 1));
+		Boolean add = shopRepository.create(new Item(2007, "Producer11 Test12", ItemLocation.SARPSBORG, ItemType.CLOTHING, 1));
 		
 		assertThat(add, is(Boolean.TRUE));
 		assertThat(items.size(), is(size + 1)); //replace with .getAll() when implemented
-		assertThat(shopRepository.findItemById(2007).getItemName(), is("Producer8 Test8"));
+		assertThat(shopRepository.findItemById(2007).getItemName(), is("Producer11 Test12"));
 	}
 
 	@Test
@@ -71,7 +71,7 @@ public class ShopRepositoryTest {
 		Boolean remove = shopRepository.delete(2001);
 		
 		assertThat(remove, is(Boolean.TRUE));
-		assertThat(items.size(), is(5)); //replace with .getAll() when implemented
+		assertThat(items.size(), is(10)); //replace with .getAll() when implemented
 		assertThat(shopRepository.findItemById(2001), nullValue());
 	}
 
@@ -87,12 +87,8 @@ public class ShopRepositoryTest {
 	//Oppg 3
 	@Test
 	public void listOfItemsInRangeIsTheSame() throws Exception {
-		List<Item> itemsInRange = shopRepository.getItemsInRange(2, 4);
-		//itemsInRange.forEach(item -> System.out.println(item.getItemName()));
-		assertThat(items.get(2), is(itemsInRange.get(0)));
-		assertThat(items.get(3), is(itemsInRange.get(1)));
-		assertThat(items.get(4), is(itemsInRange.get(2)));
-		assertThat(items.get(5), is(itemsInRange.get(3)));
+		List<Item> itemsInRange = shopRepository.getItemsInRange(2001, 2003);
+		assertEquals(4, itemsInRange.size());
 	}
 
 	//Oppg 4
@@ -100,23 +96,16 @@ public class ShopRepositoryTest {
 	public void getItemsPerLocation() throws Exception {
 		ItemLocation cityName = ItemLocation.valueOf("OSLO");
 		List<Item> itemsInOslo = shopRepository.getItemsPerLocation(cityName);
-		assertEquals(3, itemsInOslo.size());
+		assertEquals(6, itemsInOslo.size());
 	}
 
-	//Oppg 4 b
-	@Test
-	public void getNullIfListIsEmpty() throws Exception {
-		//Returnerer bare en tom liste
-		ItemLocation cityName = ItemLocation.SARPSBORG;
-		assertNull(shopRepository.getItemsPerLocation(cityName));
-	}
 
 	//Oppg 5
 	@Test
 	public void getItemsPerType() throws Exception {
 		ItemType typeName = ItemType.ELECTRONICS;
 		List<Item> electronicItems = shopRepository.getItemsPerType(typeName);
-		assertEquals(2, electronicItems.size());
+		assertEquals(3, electronicItems.size());
 	}
 
 	//Oppg 6

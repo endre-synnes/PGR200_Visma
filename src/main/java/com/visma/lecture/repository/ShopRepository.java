@@ -41,21 +41,16 @@ public class ShopRepository {
 		return items.removeIf(e -> e.getItemID().equals(itemId));
 	}
 
+	//ex 2
 	public List<Item> getAllItems() {
-		return Optional.ofNullable(items).orElse(null)
+		return items
 				.stream()
 				.collect(Collectors.toList());
 	}
 
+	//ex 3
 	public List<Item> getItemsInRange(int start, int end) {
 
-//		Comparator<Item> byId = Comparator.comparingInt(Item::getItemID);
-
-//		return items.stream()
-//				.skip(start)
-//				.limit(end)
-////				.sorted(byId)
-//				.collect(Collectors.toList());
 		return items.stream()
 				.sorted(Comparator.comparingInt(Item::getItemID))
 				.filter(item -> item.getItemID() >= start)
@@ -63,6 +58,7 @@ public class ShopRepository {
 				.collect(Collectors.toList());
 	}
 
+	//ex 4
 	public List<Item> getItemsPerLocation(ItemLocation location) {
 		return items
 				.stream()
@@ -73,12 +69,15 @@ public class ShopRepository {
 	}
 	
 
+	//ex 5
 	public List<Item> getItemsPerType(ItemType typeName) {
 		return items.stream()
 				.filter(item -> item.getItemType().equals(typeName))
 				.collect(Collectors.toList());
 	}
 
+
+	//ex 6
 	public List<Item> getItemsPerProducer(String producer) {
 		final String formattedProducer = producer.replace(" ", "_");
 		return items.stream()
