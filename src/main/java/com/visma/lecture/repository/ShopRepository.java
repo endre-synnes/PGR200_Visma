@@ -51,10 +51,15 @@ public class ShopRepository {
 
 //		Comparator<Item> byId = Comparator.comparingInt(Item::getItemID);
 
+//		return items.stream()
+//				.skip(start)
+//				.limit(end)
+////				.sorted(byId)
+//				.collect(Collectors.toList());
 		return items.stream()
-				.skip(start)
-				.limit(end)
-//				.sorted(byId)
+				.sorted(Comparator.comparingInt(Item::getItemID))
+				.filter(item -> item.getItemID() >= start)
+				.filter(item -> item.getItemID() <= end)
 				.collect(Collectors.toList());
 	}
 

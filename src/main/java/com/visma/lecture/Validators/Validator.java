@@ -63,4 +63,12 @@ public class Validator extends Throwable{
         }
     }
 
+    public static void validateOutputInt(int number){
+        if (number < 0){
+            throw new NoItemFoundForCriteriaException("No items were found for the given search criteria.");
+        }
+    }
+
+
+
 }

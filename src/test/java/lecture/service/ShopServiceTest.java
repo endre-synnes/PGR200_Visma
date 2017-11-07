@@ -70,7 +70,7 @@ public class ShopServiceTest {
 	@Test
 	public void getMapPerInStock() throws Exception {
 		Map<Boolean, List<Item>> map = shopService.getMapOfAllItemsPerStock();
-		assertEquals(10, map.get(false).size());
+		assertEquals(11, map.get(false).size());
 		assertEquals(0, map.get(true).size());
 	}
 
@@ -145,7 +145,7 @@ public class ShopServiceTest {
 	@Test
 	public void getListOfItemsInLocationXWithLessThanY() throws Exception {
 		assertNotNull(shopService.getItemsInLocationXWithLessThanYInStock(ItemLocation.OSLO, 10));
-		assertEquals(3, shopService.getItemsInLocationXWithLessThanYInStock(ItemLocation.OSLO, 10).size());
+		assertEquals(4, shopService.getItemsInLocationXWithLessThanYInStock(ItemLocation.OSLO, 10).size());
 
 		expected.expect(NoItemFoundForCriteriaException.class);
 		expected.expectMessage("No items were found for the given search criteria.");
@@ -161,7 +161,7 @@ public class ShopServiceTest {
 	public void getItemsWithNameStartingWithX() throws Exception {
 		//Testing with ShopTestUtil
 		assertEquals(1, shopService.getItemsWithNameStartingWith("X").size());
-		assertEquals(9, shopService.getItemsWithNameStartingWith("T").size());
+		assertEquals(10, shopService.getItemsWithNameStartingWith("T").size());
 
 		//Testing with Database-class
 		assertEquals(1, bigShopService.getItemsWithNameStartingWith("X").size());
@@ -175,7 +175,7 @@ public class ShopServiceTest {
 	@Test
 	public void getAverageItemStockForLocationX() throws Exception {
 		double average = shopService.getAverageItemStockForLocationX(ItemLocation.OSLO);
-		assertTrue(average == 28.6);
+		assertTrue(average == 24.0);
 	}
 
 
@@ -201,14 +201,16 @@ public class ShopServiceTest {
 	}
 
 
-//	/**
-//	 * ex 15
-//	 * @throws Exception
-//	 */
-//	@Test
-//	public void getItemsInLocationXStockHigherThanY() throws Exception {
-//		List<Item> items = shopService.getItemsInLocationXStockHigherThan()
-//	}
+	/**
+	 * ex 15	Testing for stock higher than Y in location X.
+	 * @throws Exception
+	 */
+	@Test
+	public void getItemsInLocationXStockHigherThanY() throws Exception {
+		List<Item> items = shopService.getItemsInLocationXStockHigherThan(ItemLocation.OSLO, 10);
+		assertEquals(2, items.size());
+	}
+
 
 	/**
 	 * ex 16	Getting sorted list by producer name.
@@ -218,18 +220,81 @@ public class ShopServiceTest {
 	@Test
 	public void getAllItemsSortedByProducer() throws Exception {
 		List<Item> sortedList = shopService.getItemsSortedByProducer();
-		assertTrue(sortedList.get(9).getItemID() == 2006);
+		assertTrue(sortedList.get(10).getItemID() == 2006);
 	}
 
 
 	/**
-	 * ex 17	Getting sorted list by name.
+	 * ex 17	Getting list sorted by name.
 	 * @throws Exception
 	 */
 	@Test
 	public void getAllItemsSortedByName() throws Exception {
 		List<Item> sortedList = shopService.getItemsSortedByName();
-		assertTrue(sortedList.get(9).getItemID() == 2010);
+		assertTrue(sortedList.get(10).getItemID() == 2010);
+	}
 
+
+	/**
+	 * ex 18 	Getting a list of all items sorted by stock value high to low
+	 * @throws Exception
+	 */
+	@Test
+	public void getAllItemsSortedByStock() throws Exception {
+		List<Item> items = shopService.getItemsSortedByStock();
+		assertTrue(items.get(0).getItemID() == 2007);
+	}
+
+
+	/**
+	 * ex 19	Getting a list of all items but without duplicates,
+	 * 			so if one object is equal on every parameter it will not be added to this list.
+	 * @throws Exception
+	 */
+	@Test
+	public void getAllItemsWithoutDuplicates() throws Exception {
+		List<Item> items = shopService.getAllDistinctItems();
+		assertEquals(10, items.size());
+	}
+
+
+	/**
+	 * ex 20	Getting list of items, this list contains two sublist.
+	 * 			sublist 1 is a list of items with ID between a and b,
+	 * 			same goes for sublist 2.
+	 * @throws Exception
+	 */
+	@Test
+	public void getListOfTwoSubLists() throws Exception {
+		List<Item> items = shopService.getListFromTwoSublistByIndexValues(2001, 2002, 2006, 2008);
+		assertEquals(6, items.size());
+	}
+
+
+	/**
+	 * ex 21	Get list of items with three sub-lists containing all
+	 * 			items with that parameter: location, type and producer.
+	 * 			Test if list contains two elements with this parameter.
+	 * @throws Exception
+	 */
+	@Test
+	public void getListOfItemsByLocationTypeAndProducer() throws Exception {
+		ItemLocation location = ItemLocation.OSLO;
+		ItemType type = ItemType.ELECTRONICS;
+		String producer = "Producer2";
+		List<Item> items = shopService.getListOfItmesByLocationTypeAndProducer(location, type, producer);
+		assertEquals(6, items.size());
+	}
+
+
+	/**
+	 * ex 22	Get total stock for all items.
+	 * 			Test if 307 is correct
+	 * @throws Exception
+	 */
+	@Test
+	public void getTotalInStockForAllItems() throws Exception {
+		int totalStock = shopService.getTotalStock();
+		assertEquals(307, totalStock);
 	}
 }
